@@ -57,10 +57,12 @@ def main():
                 break
             
             # Send input to the model and get a response
+            print(colored('Asking...\n', 'blue'))
             model_response = ask_model(user_input)
             conversation_history.append(model_response)
             response_text = model_response.content
             print(colored(f"Assistant: {response_text}", 'cyan'))
+            # Execute a command provided by the model
             command = parse_response(response_text)
             if command is not None:
                 output = execute_command(command)
