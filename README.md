@@ -13,7 +13,7 @@ This project integrates a command line interface (CLI) for interacting with the 
 To start the CLI, run the script with:
 
 ```bash
-python hello.py
+python bash_agent.py
 ```
 
 Ensure you monitor and control the execution of commands to prevent unintended consequences.
