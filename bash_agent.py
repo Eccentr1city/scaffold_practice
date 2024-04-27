@@ -43,7 +43,7 @@ def execute_command(command):
     prompt = input()
     if prompt != '':
         print(colored("Command skipped.", 'yellow'))
-        return
+        return "Command skipped by user."
 
     try:
         # Start the process
@@ -101,7 +101,7 @@ def main():
                 output = execute_command(command)
                 if not output:
                     output = "Command executed successfully."
-                conversation_history.append({"role": "system", "content": output})
+                conversation_history.append({"role": "user", "content": output})
         
         except KeyboardInterrupt:
             print(colored("\nExiting due to KeyboardInterrupt", 'red'))
