@@ -12,13 +12,14 @@ system_prompt = "You are being run in a scaffold in a shell on a Macbook, with t
 
 conversation_history = [{"role": "system", "content": system_prompt}]
 timeout = 10
+model = "gpt-4-turbo"
 
 def ask_model(prompt):
     conversation_history.append({"role": "user", "content": prompt})
 
     return_text = ""
     stream = client.chat.completions.create(
-        model="gpt-4-turbo",
+        model=model,
         messages=conversation_history,
         stream=True,
     )
@@ -111,6 +112,8 @@ def execute_command(command):
 
 def main():
     global timeout
+    global model
+    print(colored(f"Model: {model}", 'blue'))
     print(colored(f"System: {system_prompt}", 'blue'))
     while True:
         try:
@@ -132,6 +135,13 @@ def main():
                     print(colored(f'Timeout set to {timeout} seconds\n', 'blue'))
                 else:
                     print(colored(f'Invalid timeout value: {t_requested}\n', 'red'))
+                continue
+            elif user_split[0] == "set_model":
+                if user_split[1] in ['gpt-4-turbo', 'gpt-3.5-turbo', 'gpt-4']:
+                    model = user_split[1]
+                    print(colored(f'Model set to {model}\n', 'blue'))
+                else:
+                    print(colored(f'Invalid model: {user_split[1]}\n', 'red'))
                 continue
             
             # Send input to the model and get a response
